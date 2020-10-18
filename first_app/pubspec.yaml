@@ -1,0 +1,28 @@
+name: custom_fonts
+description: An example of how to use custom fonts with Flutter
+
+dependencies:
+  circular_bottom_navigation: ^1.0.1
+  link: ^1.1.0
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  fonts:
+    - family: Rubic
+      fonts:
+        - asset: fonts/Rubik-VariableFont_wght.ttf
+        - asset: fonts/Rubik-VariableFont_wght.ttf
+          weight: 900
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+  
+  assets:
+    - images/bg.png
+    - images/logo.png

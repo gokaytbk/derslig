@@ -68,21 +68,18 @@ class _MyAppHomeState extends State<MyAppHome> {
               Icons.delete,
               size: 35.0,
             ),
-            label: 'school',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.school,
               size: 35.0,
             ),
-            label: 'school',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.school,
               size: 35.0,
             ),
-            label: 'School',
           ),
         ],
         unselectedItemColor: Colors.blueAccent,
