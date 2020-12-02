@@ -17,12 +17,17 @@ class MyApp extends StatelessWidget {
 class MyAppHome extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _MyAppHomeState();
+    return _MyAppHome();
   }
 }
 
-class _MyAppHomeState extends State<MyAppHome> {
-  int _selectedItemIndex = 0;
+class _MyAppHome extends State<MyAppHome> {
+  int _seciliSayfa = 0;
+  void sayfaDegistir(int index) {
+    setState(() {
+      _seciliSayfa = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +56,71 @@ class _MyAppHomeState extends State<MyAppHome> {
             repeat: ImageRepeat.repeat,
           ),
         ),
+        child: sayfaGoster(_seciliSayfa),
+      ),
+      bottomNavigationBar: Row(
+        children: <Widget>[
+          buildNavBarItem(Icons.home, 0, true),
+          buildNavBarItem(Icons.featured_play_list_rounded, 1, false),
+          buildNavBarItem(Icons.notifications, 2, false),
+          buildNavBarItem(Icons.vpn_key_rounded, 3, false),
+        ],
+      ),
+    );
+  }
+
+  Widget buildNavBarItem(IconData icon, int index, bool isActive) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _seciliSayfa = index;
+        });
+      },
+      child: Container(
+        height: 60,
+        width: MediaQuery.of(context).size.width / 4,
+        decoration: index == _seciliSayfa
+            ? BoxDecoration(
+                color: index == _seciliSayfa ? Colors.white : Colors.white,
+              )
+            : BoxDecoration(),
+        child: Icon(icon,
+            color:
+                index == _seciliSayfa ? Color(0xff4167b2) : Color(0xffBDBDBD),
+            size: 30),
+      ),
+    );
+  }
+
+  Widget sayfaGoster(int _seciliSayfa) {
+    // ignore: unrelated_type_equality_checks
+    if (_seciliSayfa == 0) {
+      return sayfa1();
+      // ignore: unrelated_type_equality_checks
+    } else if (_seciliSayfa == 1) {
+      return sayfa2();
+      // ignore: unrelated_type_equality_checks
+    } else if (_seciliSayfa == 2) {
+      return sayfa3();
+      // ignore: unrelated_type_equality_checks
+    } else if (_seciliSayfa == 3) {
+      return sayfa4();
+    }
+    return Container();
+  }
+
+  Widget sayfa1() {
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/bg.png"),
+            repeat: ImageRepeat.repeat,
+          ),
+        ),
+        child: Center(
+          child: Text("ANASAYFA"),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.push(
@@ -61,58 +131,52 @@ class _MyAppHomeState extends State<MyAppHome> {
         ),
         backgroundColor: Color(0xff4167b2),
       ),
-      bottomNavigationBar: Row(
-        children: <Widget>[
-          buildNavBarItem(Icons.home, 0),
-          buildNavBarItem(Icons.my_library_books, 1),
-          buildNavBarItem(Icons.notifications_rounded, 2),
-          buildNavBarItem(
-            Icons.menu_book_rounded,
-            3,
+    );
+  }
+
+  Widget sayfa2() {
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/bg.png"),
+            repeat: ImageRepeat.repeat,
           ),
-        ],
+        ),
+        child: Center(
+          child: Text("DERS PROGRAMI"),
+        ),
       ),
     );
   }
 
-  Widget buildNavBarItem(IconData icon, int index) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _selectedItemIndex = index;
-        });
-      },
-      child: Container(
-        height: 60,
-        width: MediaQuery.of(context).size.width / 4,
-        decoration: index == _selectedItemIndex
-            ? BoxDecoration(
-                gradient: LinearGradient(colors: [
-                  Color(0xff2f497c).withOpacity(1),
-                  Color(0xff2f497c).withOpacity(0.2),
-                  Color(0xff2f497c).withOpacity(0),
-                  Color(0xff2f497c).withOpacity(0),
-                  Color(0xff2f497c).withOpacity(0),
-                  Color(0xff2f497c).withOpacity(0),
-                  Color(0xff4167b2).withOpacity(0.0),
-                  Color(0xff4167b2).withOpacity(0.0),
-                  Color(0xff4167b2).withOpacity(0.0),
-                  Color(0xff4167b2).withOpacity(0.0),
-                  Color(0xff4167b2).withOpacity(0.0),
-                  Color(0xff4167b2).withOpacity(0.0),
-                  Color(0xff4167b2).withOpacity(0.0),
-                ], begin: Alignment.bottomCenter, end: Alignment.topCenter),
-                // color: index == _selectedItemIndex
-                //     ? Colors.grey[300]
-                //     : Colors.blue[900]
-              )
-            : BoxDecoration(),
-        child: Icon(
-          icon,
-          color: index == _selectedItemIndex
-              ? Color(0xff4167b2)
-              : Colors.grey[800],
-          size: 30,
+  Widget sayfa3() {
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/bg.png"),
+            repeat: ImageRepeat.repeat,
+          ),
+        ),
+        child: Center(
+          child: Text("BILDIRIMLER"),
+        ),
+      ),
+    );
+  }
+
+  Widget sayfa4() {
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/bg.png"),
+            repeat: ImageRepeat.repeat,
+          ),
+        ),
+        child: Center(
+          child: Text("CEVAP ANAHTARLARI"),
         ),
       ),
     );

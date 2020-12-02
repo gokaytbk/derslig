@@ -12,53 +12,9 @@ class Add extends StatefulWidget {
 }
 
 class _MyAddPage extends State<Add> {
-  int _value = 1;
-
-  bool matVal = false;
-  bool turVal = false;
-  bool ingVal = false;
-  bool fenVal = false;
-  bool sosVal = false;
-  bool bedVal = false;
-  bool dinVal = false;
-
-  Widget checkbox(String title, bool boolValue) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(title),
-        Checkbox(
-          value: boolValue,
-          onChanged: (bool value) {
-            setState(() {
-              switch (title) {
-                case "Matematik":
-                  matVal = value;
-                  break;
-                case "Türkçe":
-                  turVal = value;
-                  break;
-                case "İngilizce":
-                  ingVal = value;
-                  break;
-                case "Fen Bilimleri":
-                  fenVal = value;
-                  break;
-                case "Sosyal":
-                  sosVal = value;
-                  break;
-                case "Beden Eğitimi":
-                  bedVal = value;
-                  break;
-                case "Din ve Ahlak Kültürü":
-                  dinVal = value;
-                  break;
-              }
-            });
-          },
-        )
-      ],
-    );
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -74,130 +30,154 @@ class _MyAddPage extends State<Add> {
         title: Text("Sınıf ve Ders Seçiniz"),
       ),
       body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("images/bg.png"),
-            repeat: ImageRepeat.repeat,
-          ),
-        ),
-        child: Align(
-          alignment: Alignment.topCenter,
-          child: Padding(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 5.0, right: 5.0),
-                    child: buildDropdownButton(),
-                  ),
-                ),
-                Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(top: 20.0, bottom: 30),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(),
-                        ),
-                        child: Container(
-                          child: Row(
-                            children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Column(
-                                  children: [
-                                    checkbox("Matematik", matVal),
-                                    checkbox("Türkçe", turVal),
-                                    checkbox("İngilizce", ingVal),
-                                    checkbox("Fen Bilimleri", fenVal),
-                                    checkbox("Sosyal", sosVal),
-                                    checkbox("Beden Eğitimi", bedVal),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("images/bg.png"),
+              repeat: ImageRepeat.repeat,
             ),
           ),
+          child: Padding(
+            padding: EdgeInsets.all(5),
+            child: Column(
+              children: [
+                Dropdown(),
+                new Expanded(
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width / 1.1,
+                    child: buildList1(),
+                  ),
+                )
+              ],
+            ),
+          )),
+    );
+  }
+
+  List<bool> _list1 = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ];
+
+  List<ListTile> buildList1() {
+    List<Widget> listButtons = List.generate(_list1.length, (i) {
+      return SizedBox(
+        width: MediaQuery.of(context).size.width / 2.2,
+        child: Container(
+          margin: EdgeInsets.all(5),
+          child: RaisedButton(
+            padding: const EdgeInsets.all(15),
+            color: _list1[i] ? Color(0xff4167B2) : Color(0xff718DC6),
+            onPressed: () {
+              setState(() {
+                _list1[i] = !_list1[i];
+              });
+            },
+            child: Text(
+              "Button $i",
+              style: TextStyle(color: Colors.white, fontSize: 15),
+            ),
+          ),
+        ),
+      );
+    });
+    return listButtons;
+  }
+
+  List<bool> _list2 = <bool>[
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ];
+
+  List<ListTile> buildList2() {
+    List<Widget> listButtons = List.generate(_list2.length, (i) {
+      return SizedBox(
+        width: MediaQuery.of(context).size.width / 2.2,
+        child: Container(
+          margin: EdgeInsets.all(5),
+          child: RaisedButton(
+            padding: const EdgeInsets.all(15),
+            color: _list2[i] ? Color(0xff4167B2) : Color(0xff718DC6),
+            onPressed: () {
+              setState(() {
+                _list2[i] = !_list2[i];
+              });
+            },
+            child: Text(
+              "Button $i",
+              style: TextStyle(color: Colors.white, fontSize: 15),
+            ),
+          ),
+        ),
+      );
+    });
+    return listButtons;
+  }
+}
+
+class Dropdown extends StatefulWidget {
+  @override
+  _DropdownState createState() {
+    return _DropdownState();
+  }
+}
+
+class _DropdownState extends State<Dropdown> {
+  int _value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+      data: new ThemeData(
+          primaryColor: Colors.grey[100],
+          accentColor: Colors.grey[200],
+          hintColor: Colors.grey[800]),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        alignment: Alignment.topCenter,
+        child: DropdownButton<int>(
+          isExpanded: true,
+          items: [
+            buildDropdownMenuItem(0, "1. sinif"),
+            buildDropdownMenuItem(1, "2. sinif"),
+            buildDropdownMenuItem(2, "3. sinif"),
+            buildDropdownMenuItem(3, "4. sinif"),
+            buildDropdownMenuItem(4, "5. sinif"),
+            buildDropdownMenuItem(5, "6. sinif"),
+            buildDropdownMenuItem(6, "7. sinif"),
+            buildDropdownMenuItem(7, "8. sinif"),
+            buildDropdownMenuItem(8, "9. sinif"),
+            buildDropdownMenuItem(9, "10. sinif"),
+            buildDropdownMenuItem(10, "11. sinif"),
+            buildDropdownMenuItem(11, "12. sinif"),
+          ],
+          onChanged: (int value) {
+            setState(() {
+              _value = value;
+            });
+          },
+          hint: Text('Sınıf Seçiniz'),
+          value: _value,
         ),
       ),
     );
   }
 
-  DropdownButton<int> buildDropdownButton() {
-    return DropdownButton(
-      items: [
-        DropdownMenuItem(
-          child: Text("1. Sınıf"),
-          value: 1,
-        ),
-        DropdownMenuItem(
-          child: Text("2. Sınıf"),
-          value: 2,
-        ),
-        DropdownMenuItem(
-          child: Text("3. Sınıf"),
-          value: 3,
-        ),
-        DropdownMenuItem(
-          child: Text("4. Sınıf"),
-          value: 4,
-        ),
-        DropdownMenuItem(
-          child: Text("5. Sınıf"),
-          value: 5,
-        ),
-        DropdownMenuItem(
-          child: Text("6. Sınıf"),
-          value: 6,
-        ),
-        DropdownMenuItem(
-          child: Text("7. Sınıf"),
-          value: 7,
-        ),
-        DropdownMenuItem(
-          child: Text("8. Sınıf"),
-          value: 8,
-        ),
-        DropdownMenuItem(
-          child: Text("9. Sınıf"),
-          value: 9,
-        ),
-        DropdownMenuItem(
-          child: Text("10. Sınıf"),
-          value: 10,
-        ),
-        DropdownMenuItem(
-          child: Text("11. Sınıf"),
-          value: 11,
-        ),
-        DropdownMenuItem(
-          child: Text("12. Sınıf"),
-          value: 12,
-        ),
-      ],
-      value: _value,
-      onChanged: (value) {
-        setState(
-          () {
-            _value = value;
-          },
-        );
-      },
+  DropdownMenuItem<int> buildDropdownMenuItem(
+      int dropdownValue, String dropdownClass) {
+    return DropdownMenuItem<int>(
+      child: Text(
+        dropdownClass,
+        style: TextStyle(color: Colors.grey[800]),
+      ),
+      value: dropdownValue,
     );
   }
 }
